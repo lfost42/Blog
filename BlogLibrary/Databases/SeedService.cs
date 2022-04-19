@@ -59,9 +59,12 @@ namespace BlogLibrary.Databases
                 UserName = "owner@myblog.com",
                 FirstName = "Owner",
                 LastName = "Demobarista",
-                EmailConfirmed = true,
+                EmailConfirmed = true
+            };
+            ownerUser.Image = new ImageModel()
+            {
                 ImageData = await _imageService.EncodeImageAsync(_config["DefaultUserImage"]),
-                ContentType = Path.GetExtension(_config["DefaultUserImage"])
+                ImageExtension = Path.GetExtension(_config["DefaultUserImage"])
             };
 
             await _userManager.CreateAsync(ownerUser, "Abc1234!");
@@ -74,8 +77,12 @@ namespace BlogLibrary.Databases
                 FirstName = "Mod",
                 LastName = "Demomod",
                 EmailConfirmed = true,
+            };
+
+            adminUser.Image = new ImageModel()
+            {
                 ImageData = await _imageService.EncodeImageAsync(_config["DefaultUserImage"]),
-                ContentType = Path.GetExtension(_config["DefaultUserImage"])
+                ImageExtension = Path.GetExtension(_config["DefaultUserImage"])
             };
 
             await _userManager.CreateAsync(adminUser, "Abc1234!");
@@ -87,9 +94,13 @@ namespace BlogLibrary.Databases
                 UserName = "demovisitor@myblog.com",
                 FirstName = "Guest",
                 LastName = "Demovisitor",
-                EmailConfirmed = true,
+                EmailConfirmed = true
+            };
+
+            visitorUser.Image = new ImageModel()
+            {
                 ImageData = await _imageService.EncodeImageAsync(_config["DefaultUserImage"]),
-                ContentType = Path.GetExtension(_config["DefaultUserImage"])
+                ImageExtension = Path.GetExtension(_config["DefaultUserImage"])
             };
 
             await _userManager.CreateAsync(visitorUser, "Abc1234!");

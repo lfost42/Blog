@@ -21,8 +21,8 @@ namespace BlogLibrary.Models
         [Display(Name = "Name")]
         public string FullName => $"{FirstName} {LastName}";
 
-        public byte[] ImageData { get; set; }
-        public string ContentType { get; set; }
+        [Display(Name = "Avatar")]
+        public int ImageId { get; set; }
 
         [StringLength(100, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 2)]
         public string GitHubUrl { get; set; }
@@ -30,6 +30,8 @@ namespace BlogLibrary.Models
         public string PortfolioUrl { get; set; }
         [StringLength(100, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 2)]
         public string TwitterUrl { get; set; }
+
+        public virtual ImageModel Image { get; set; }
 
         public virtual ICollection<ArticleModel> Articles { get; set; } = new HashSet<ArticleModel>();
         public virtual ICollection<CommentModel> Comments { get; set; } = new HashSet<CommentModel>();

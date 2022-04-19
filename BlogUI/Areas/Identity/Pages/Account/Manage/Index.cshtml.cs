@@ -47,7 +47,9 @@ namespace BlogUI.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
-            public IFormFile Image { get; set; } 
+
+            [Display(Name = "Avatar")]
+            public ImageModel Image { get; set; } 
 
         }
 
@@ -58,7 +60,9 @@ namespace BlogUI.Areas.Identity.Pages.Account.Manage
 
 
             Username = userName;
-            CurrentImage = _imageService.DecodeImage(user.ImageData, user.ContentType);
+
+            user.Image = new ImageModel();
+            CurrentImage = _imageService.DecodeImage(user.Image.ImageData, user.Image.ImageExtension);
             
             Input = new InputModel
             {
@@ -105,9 +109,9 @@ namespace BlogUI.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-
-            user.ImageData = await _imageService.EncodeImageAsync(Input.Image);
-            user.ContentType = _imageService.ContentType(Input.Image);
+            user.Image = new ImageModel();
+            user.Image.ImageData = await _imageService.EncodeImageAsync(Input.Image.Photo);
+            user.Image.ImageExtension = _imageService.ContentType(Input.Image.Photo);
             await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
